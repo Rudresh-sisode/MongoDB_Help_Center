@@ -1,0 +1,39 @@
+db.Product.insert([
+{
+PogId : 1, Brand : "Sony", Description : "TV", Size : "34inc", Category :"Android",
+Sub_Category : "LCD", Price : 32423, Quantity : 4, Country : "Indonesia",
+Seller_Code : "34dFc92w", Creation_Time : "31/12/2012", Stock : "Full"
+
+},
+{
+PogId : 2, Brand : "Fastrack", Description : "Watch", Size : "34inc", Category :"Male",
+Sub_Category : "under 30", Price : 3243, Quantity : 34, Country : "India",
+Seller_Code : "34dFt5", Creation_Time : "1/12/2012", Stock : "Excluded"
+},
+{
+PogId : 3, Brand : "Cello", Description : "Pen", Size : "34inc", Category :"Grippher",
+Sub_Category : "Ball", Price : 4343, Quantity : 3344, Country : "Thiland",
+Seller_Code : "34lFc1", Creation_Time : "3/12/2012", Stock : "Half"
+},
+{
+PogId : 4, Brand : "Titan", Description : "Watch", Size : "34inc", Category :"Female",
+Sub_Category : "30", Price : 4923, Quantity : 34, Country : "Japan",
+Seller_Code : "34fFc1", Creation_Time : "31/11/2012", Stock : "Integrated"
+},
+{
+PogId : 5, Brand : "LG", Description : "Mobile", Size : "59", Category :"XIOn",
+Sub_Category : "10e", Price : 23900, Quantity : 384, Country : "France",
+Seller_Code : "34ddc1", Creation_Time : "31/12/2002", Stock : "Full"
+},
+{
+PogId : 6, Brand : "Triper", Description : "Nighty", Size : "XL", Category :"Boy",
+Sub_Category : "Half", Price : 0983, Quantity : 34, Country : "Bhutan",
+Seller_Code : "34d90er", Creation_Time : "31/12/2012", Stock : "Full"
+},
+{
+PogId : 7, Brand : "Sundaram", Description : "Notebook", Size : "34inc", Category :"Male",
+Sub_Category : "under 30", Price : 3243, Quantity : 34, Country : "India",
+Seller_Code : "34dFc1", Creation_Time : "31/12/2012", Stock : "Full"
+}
+
+])

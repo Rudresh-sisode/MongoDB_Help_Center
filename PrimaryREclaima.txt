@@ -1,0 +1,472 @@
+Microsoft Windows [Version 10.0.14393]
+(c) 2016 Microsoft Corporation. All rights reserved.
+
+C:\Windows\system32>cd C:\Program Files\MongoDB\Server\4.0\bin
+
+C:\Program Files\MongoDB\Server\4.0\bin>mongo --port 47017
+MongoDB shell version v4.0.12
+connecting to: mongodb://127.0.0.1:47017/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e7bb798d-7cd1-4c9d-87a3-fd0d476aac67") }
+MongoDB server version: 4.0.12
+Server has startup warnings:
+2019-12-06T19:31:45.412+0530 I CONTROL  [initandlisten]
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten]
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] ** WARNING: This server is bound to localhost.
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] **          Remote systems will be unable to connect to this server.
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] **          Start the server with --bind_ip <address> to specify which IP
+2019-12-06T19:31:45.413+0530 I CONTROL  [initandlisten] **          addresses it should serve responses from, or with --bind_ip_all to
+2019-12-06T19:31:45.414+0530 I CONTROL  [initandlisten] **          bind to all interfaces. If this behavior is desired, start the
+2019-12-06T19:31:45.414+0530 I CONTROL  [initandlisten] **          server with --bind_ip 127.0.0.1 to disable this warning.
+2019-12-06T19:31:45.414+0530 I CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> //server on 47017
+> rs.help()
+        rs.status()                                { replSetGetStatus : 1 } checks repl set status
+        rs.initiate()                              { replSetInitiate : null } initiates set with default settings
+        rs.initiate(cfg)                           { replSetInitiate : cfg } initiates set with configuration cfg
+        rs.conf()                                  get the current configuration object from local.system.replset
+        rs.reconfig(cfg)                           updates the configuration of a running replica set with cfg (disconnects)
+        rs.add(hostportstr)                        add a new member to the set with default attributes (disconnects)
+        rs.add(membercfgobj)                       add a new member to the set with extra attributes (disconnects)
+        rs.addArb(hostportstr)                     add a new member which is arbiterOnly:true (disconnects)
+        rs.stepDown([stepdownSecs, catchUpSecs])   step down as primary (disconnects)
+        rs.syncFrom(hostportstr)                   make a secondary sync from the given member
+        rs.freeze(secs)                            make a node ineligible to become primary for the time specified
+        rs.remove(hostportstr)                     remove a host from the replica set (disconnects)
+        rs.slaveOk()                               allow queries on secondary nodes
+
+        rs.printReplicationInfo()                  check oplog size and time range
+        rs.printSlaveReplicationInfo()             check replica set members and replication lag
+        db.isMaster()                              check who is primary
+
+        reconfiguration helpers disconnect from the database so the shell will display
+        an error, even if the command succeeds.
+> rs.status()
+{
+        "operationTime" : Timestamp(0, 0),
+        "ok" : 0,
+        "errmsg" : "no replset config has been received",
+        "code" : 94,
+        "codeName" : "NotYetInitialized",
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(0, 0),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+> rs.initiate()
+{
+        "info2" : "no configuration specified. Using a default configuration for the set",
+        "me" : "localhost:47017",
+        "ok" : 1,
+        "operationTime" : Timestamp(1575642687, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575642687, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:SECONDARY>
+rs:PRIMARY> rs.status()
+{
+        "set" : "rs",
+        "date" : ISODate("2019-12-06T14:33:00.682Z"),
+        "myState" : 1,
+        "term" : NumberLong(1),
+        "syncingTo" : "",
+        "syncSourceHost" : "",
+        "syncSourceId" : -1,
+        "heartbeatIntervalMillis" : NumberLong(2000),
+        "optimes" : {
+                "lastCommittedOpTime" : {
+                        "ts" : Timestamp(1575642780, 1),
+                        "t" : NumberLong(1)
+                },
+                "readConcernMajorityOpTime" : {
+                        "ts" : Timestamp(1575642780, 1),
+                        "t" : NumberLong(1)
+                },
+                "appliedOpTime" : {
+                        "ts" : Timestamp(1575642780, 1),
+                        "t" : NumberLong(1)
+                },
+                "durableOpTime" : {
+                        "ts" : Timestamp(1575642780, 1),
+                        "t" : NumberLong(1)
+                }
+        },
+        "lastStableCheckpointTimestamp" : Timestamp(1575642750, 1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "name" : "localhost:47017",
+                        "health" : 1,
+                        "state" : 1,
+                        "stateStr" : "PRIMARY",
+                        "uptime" : 1876,
+                        "optime" : {
+                                "ts" : Timestamp(1575642780, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T14:33:00Z"),
+                        "syncingTo" : "",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "could not find member to sync from",
+                        "electionTime" : Timestamp(1575642687, 2),
+                        "electionDate" : ISODate("2019-12-06T14:31:27Z"),
+                        "configVersion" : 1,
+                        "self" : true,
+                        "lastHeartbeatMessage" : ""
+                }
+        ],
+        "ok" : 1,
+        "operationTime" : Timestamp(1575642780, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575642780, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:PRIMARY> rs.help()
+        rs.status()                                { replSetGetStatus : 1 } checks repl set status
+        rs.initiate()                              { replSetInitiate : null } initiates set with default settings
+        rs.initiate(cfg)                           { replSetInitiate : cfg } initiates set with configuration cfg
+        rs.conf()                                  get the current configuration object from local.system.replset
+        rs.reconfig(cfg)                           updates the configuration of a running replica set with cfg (disconnects)
+        rs.add(hostportstr)                        add a new member to the set with default attributes (disconnects)
+        rs.add(membercfgobj)                       add a new member to the set with extra attributes (disconnects)
+        rs.addArb(hostportstr)                     add a new member which is arbiterOnly:true (disconnects)
+        rs.stepDown([stepdownSecs, catchUpSecs])   step down as primary (disconnects)
+        rs.syncFrom(hostportstr)                   make a secondary sync from the given member
+        rs.freeze(secs)                            make a node ineligible to become primary for the time specified
+        rs.remove(hostportstr)                     remove a host from the replica set (disconnects)
+        rs.slaveOk()                               allow queries on secondary nodes
+
+        rs.printReplicationInfo()                  check oplog size and time range
+        rs.printSlaveReplicationInfo()             check replica set members and replication lag
+        db.isMaster()                              check who is primary
+
+        reconfiguration helpers disconnect from the database so the shell will display
+        an error, even if the command succeeds.
+rs:PRIMARY> rs.add("localhost:47018")
+{
+        "ok" : 1,
+        "operationTime" : Timestamp(1575642933, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575642933, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:PRIMARY> rs.status()
+{
+        "set" : "rs",
+        "date" : ISODate("2019-12-06T14:35:46.716Z"),
+        "myState" : 1,
+        "term" : NumberLong(1),
+        "syncingTo" : "",
+        "syncSourceHost" : "",
+        "syncSourceId" : -1,
+        "heartbeatIntervalMillis" : NumberLong(2000),
+        "optimes" : {
+                "lastCommittedOpTime" : {
+                        "ts" : Timestamp(1575642933, 1),
+                        "t" : NumberLong(1)
+                },
+                "readConcernMajorityOpTime" : {
+                        "ts" : Timestamp(1575642933, 1),
+                        "t" : NumberLong(1)
+                },
+                "appliedOpTime" : {
+                        "ts" : Timestamp(1575642933, 1),
+                        "t" : NumberLong(1)
+                },
+                "durableOpTime" : {
+                        "ts" : Timestamp(1575642933, 1),
+                        "t" : NumberLong(1)
+                }
+        },
+        "lastStableCheckpointTimestamp" : Timestamp(1575642930, 1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "name" : "localhost:47017",
+                        "health" : 1,
+                        "state" : 1,
+                        "stateStr" : "PRIMARY",
+                        "uptime" : 2042,
+                        "optime" : {
+                                "ts" : Timestamp(1575642933, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T14:35:33Z"),
+                        "syncingTo" : "",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "",
+                        "electionTime" : Timestamp(1575642687, 2),
+                        "electionDate" : ISODate("2019-12-06T14:31:27Z"),
+                        "configVersion" : 2,
+                        "self" : true,
+                        "lastHeartbeatMessage" : ""
+                },
+                {
+                        "_id" : 1,
+                        "name" : "localhost:47018",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 12,
+                        "optime" : {
+                                "ts" : Timestamp(1575642933, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1575642933, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T14:35:33Z"),
+                        "optimeDurableDate" : ISODate("2019-12-06T14:35:33Z"),
+                        "lastHeartbeat" : ISODate("2019-12-06T14:35:45.884Z"),
+                        "lastHeartbeatRecv" : ISODate("2019-12-06T14:35:46.689Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "",
+                        "syncingTo" : "",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "",
+                        "configVersion" : 2
+                }
+        ],
+        "ok" : 1,
+        "operationTime" : Timestamp(1575642933, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575642933, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:PRIMARY> rs.add("localhost:47019")
+{
+        "ok" : 1,
+        "operationTime" : Timestamp(1575646131, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575646131, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:PRIMARY> rs.status()
+{
+        "set" : "rs",
+        "date" : ISODate("2019-12-06T15:29:31.493Z"),
+        "myState" : 1,
+        "term" : NumberLong(1),
+        "syncingTo" : "",
+        "syncSourceHost" : "",
+        "syncSourceId" : -1,
+        "heartbeatIntervalMillis" : NumberLong(2000),
+        "optimes" : {
+                "lastCommittedOpTime" : {
+                        "ts" : Timestamp(1575646170, 1),
+                        "t" : NumberLong(1)
+                },
+                "readConcernMajorityOpTime" : {
+                        "ts" : Timestamp(1575646170, 1),
+                        "t" : NumberLong(1)
+                },
+                "appliedOpTime" : {
+                        "ts" : Timestamp(1575646170, 1),
+                        "t" : NumberLong(1)
+                },
+                "durableOpTime" : {
+                        "ts" : Timestamp(1575646170, 1),
+                        "t" : NumberLong(1)
+                }
+        },
+        "lastStableCheckpointTimestamp" : Timestamp(1575646120, 1),
+        "members" : [
+                {
+                        "_id" : 0,
+                        "name" : "localhost:47017",
+                        "health" : 1,
+                        "state" : 1,
+                        "stateStr" : "PRIMARY",
+                        "uptime" : 5267,
+                        "optime" : {
+                                "ts" : Timestamp(1575646170, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T15:29:30Z"),
+                        "syncingTo" : "",
+                        "syncSourceHost" : "",
+                        "syncSourceId" : -1,
+                        "infoMessage" : "",
+                        "electionTime" : Timestamp(1575642687, 2),
+                        "electionDate" : ISODate("2019-12-06T14:31:27Z"),
+                        "configVersion" : 3,
+                        "self" : true,
+                        "lastHeartbeatMessage" : ""
+                },
+                {
+                        "_id" : 1,
+                        "name" : "localhost:47018",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 3237,
+                        "optime" : {
+                                "ts" : Timestamp(1575646160, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1575646160, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T15:29:20Z"),
+                        "optimeDurableDate" : ISODate("2019-12-06T15:29:20Z"),
+                        "lastHeartbeat" : ISODate("2019-12-06T15:29:29.781Z"),
+                        "lastHeartbeatRecv" : ISODate("2019-12-06T15:29:29.791Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "",
+                        "syncingTo" : "localhost:47017",
+                        "syncSourceHost" : "localhost:47017",
+                        "syncSourceId" : 0,
+                        "infoMessage" : "",
+                        "configVersion" : 3
+                },
+                {
+                        "_id" : 2,
+                        "name" : "localhost:47019",
+                        "health" : 1,
+                        "state" : 2,
+                        "stateStr" : "SECONDARY",
+                        "uptime" : 39,
+                        "optime" : {
+                                "ts" : Timestamp(1575646160, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDurable" : {
+                                "ts" : Timestamp(1575646160, 1),
+                                "t" : NumberLong(1)
+                        },
+                        "optimeDate" : ISODate("2019-12-06T15:29:20Z"),
+                        "optimeDurableDate" : ISODate("2019-12-06T15:29:20Z"),
+                        "lastHeartbeat" : ISODate("2019-12-06T15:29:29.782Z"),
+                        "lastHeartbeatRecv" : ISODate("2019-12-06T15:29:31.460Z"),
+                        "pingMs" : NumberLong(0),
+                        "lastHeartbeatMessage" : "",
+                        "syncingTo" : "localhost:47018",
+                        "syncSourceHost" : "localhost:47018",
+                        "syncSourceId" : 1,
+                        "infoMessage" : "",
+                        "configVersion" : 3
+                }
+        ],
+        "ok" : 1,
+        "operationTime" : Timestamp(1575646170, 1),
+        "$clusterTime" : {
+                "clusterTime" : Timestamp(1575646170, 1),
+                "signature" : {
+                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+                        "keyId" : NumberLong(0)
+                }
+        }
+}
+rs:PRIMARY> rs.conf()
+{
+        "_id" : "rs",
+        "version" : 3,
+        "protocolVersion" : NumberLong(1),
+        "writeConcernMajorityJournalDefault" : true,
+        "members" : [
+                {
+                        "_id" : 0,
+                        "host" : "localhost:47017",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 1,
+                        "host" : "localhost:47018",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                },
+                {
+                        "_id" : 2,
+                        "host" : "localhost:47019",
+                        "arbiterOnly" : false,
+                        "buildIndexes" : true,
+                        "hidden" : false,
+                        "priority" : 1,
+                        "tags" : {
+
+                        },
+                        "slaveDelay" : NumberLong(0),
+                        "votes" : 1
+                }
+        ],
+        "settings" : {
+                "chainingAllowed" : true,
+                "heartbeatIntervalMillis" : 2000,
+                "heartbeatTimeoutSecs" : 10,
+                "electionTimeoutMillis" : 10000,
+                "catchUpTimeoutMillis" : -1,
+                "catchUpTakeoverDelayMillis" : 30000,
+                "getLastErrorModes" : {
+
+                },
+                "getLastErrorDefaults" : {
+                        "w" : 1,
+                        "wtimeout" : 0
+                },
+                "replicaSetId" : ObjectId("5dea663f8e8f6db772075e85")
+        }
+}
+rs:PRIMARY> use TEMP
+switched to db TEMP
+rs:PRIMARY> db.test.insert({test:"ok"})
+WriteResult({ "nInserted" : 1 })
+rs:PRIMARY> show collections
+test
+rs:PRIMARY>
